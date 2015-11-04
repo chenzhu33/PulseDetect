@@ -81,7 +81,7 @@ function [H1,H2,H3,H4,H5,H6,T1,T2,T3,T4,T5,T6]=FeatureExtraction(resource)
         end
     end
     %求得定位阈值
-    thred = (t3maxIndex + t5minIndex) / 2
+    thred = (t3maxIndex + t5minIndex) / 2;
     
     %开始对所有极值分类，如果T值为1说明没有明显的潮波或重搏波极值
     j=1;

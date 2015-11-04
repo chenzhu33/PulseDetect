@@ -52,7 +52,6 @@ grid on;
 xlabel('脉搏数');ylabel('周期值');
 title('周期序列');
 
-
 % Other...
 
 % 峰值的特征显示
