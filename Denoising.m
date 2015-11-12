@@ -20,37 +20,13 @@ function re = Denoising(resource, waveFrequency)
     Wp=[0.9 50]/500;Ws=[0.3 140]/500;
     [n,Wn] = buttord(Wp,Ws,3,10);
     [b,a] = butter(n,Wn);
-    freqz(b,a,512,waveFrequency);
+    %freqz(b,a,512,waveFrequency);
     
     %%cheby去除50hz工频干扰
     Wp1=[30 65]/500;Ws1=[45 55]/500;
     rp=3;rs=60;
     [n1,Wn1] = cheb2ord(Wp1,Ws1,rp,rs);
     [b1,a1] = cheby2(n1,rs,Wn1,'stop');
-    freqz(b1,a1,512,waveFrequency);
+    %freqz(b1,a1,512,waveFrequency);
     x2=filtfilt(b,a,x1);
-    A=filtfilt(b1,a1,x2);
-    
-    %三次样条插值-再次处理基线漂移
-    %先求极小值
-    PM=max(A);
-    MM=min(A);
-    G=(PM-MM)*0.3; %峰值大小波动范围不超过最大波形高度的0.3倍
-    if min(A(1:100))==min(A(1:550))
-        [P1(1),t1(1)]=min(A(1:200));
-        cnt1=1;
-    elseif min(A(1:100))~=min(A(1:550))
-        cnt1=0;
-    end
-    for i=51:length(A)-50
-        if A(i)-MM < G && A(i)==min(A(i-50:i+50))
-             P1(cnt1+1)=A(i);
-             t1(cnt1+1)=i;  
-             cnt1=cnt1+1;
-        end
-    end
-
-    %然后做插值
-    xx = 1:1:length(A);
-    B=interp1(t1,P1,xx,'spline');
-    re = A-B;
+    re=filtfilt(b1,a1,x2);

@@ -12,7 +12,7 @@ figure(1);
 subplot(211);
 plot(input); 
 grid;
-xlabel('时间（ms）');ylabel('幅值');
+xlabel('时间（ms）');ylabel('幅值'); 
 title('原始信号');
 subplot(212);
 plot(Final);
