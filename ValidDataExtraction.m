@@ -1,7 +1,7 @@
 function [startPos, endPos] = ValidDataExtraction(data)
     data4 = data';
 
-    win_len_vec=110;%开窗长度，可以调节试试什么大小最合适
+    win_len_vec=130;%开窗长度，可以调节试试什么大小最合适
     pos=0;
     for win_len=win_len_vec
         pos=pos+1;
