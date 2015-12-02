@@ -1,6 +1,6 @@
 close all;
 %%原始信号的导入
-input=load('C:\Users\carelifead\Documents\czw.csv');
+input=load('C:\Users\carelifead\Desktop\pulse\ym.csv');
 input=input';
 fs=200;
 averageHalfT = 75;
@@ -19,16 +19,23 @@ for i=1:1:sizeInput(1)
     % 有效数据提取
     [startPos, endPos] = ValidDataExtraction(inputdata);
     ValidData = inputdata(startPos+300:endPos-300);
-
-    % 去噪
-    afterDenoising = Denoising(ValidData,fs);
     
-    figure(1)
+    % 去噪
+    
+    figure(1);
     subplot(211);
     plot(inputdata);
     subplot(212);
+    inputdata2 = zeros(1,length(inputdata));
+    for xx=startPos+300:endPos-300
+        inputdata2(xx)=inputdata(xx);
+    end
+    plot(inputdata2);
+    continue;
+    afterDenoising = Denoising(ValidData,fs);
+    figure(2);
     plot(afterDenoising);
-    
+
     % 对信号分类，有清晰波形的信号做基线拟合，特征提取
     % 没有清晰波形的信号只提取幅值和周期
     % 分类方法：找出所有极值点，如果平均一个周期内极值点数目>3.5，认为信号不清晰。
