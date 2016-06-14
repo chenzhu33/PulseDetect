@@ -141,22 +141,6 @@ def generate_data(filename):
         fw.write('Poor data condition\n')
         return
 
-    #####################Average Width########################
-    # width = 0
-    # x = np.arange(0,len(h1List),1);
-    # y = averageAmplitude[0:len(h1List)];
-    # try:
-    #     p= np.polyfit(x,y,2);
-    #     zeroRoot = np.roots(p);
-    #     if zeroRoot.size >= 2:
-    #         width = np.real(zeroRoot[0]-zeroRoot[1]);
-    #         if width < 0:
-    #             width = 0;
-    # except:
-    #     width = 0
-    # print("Average Width:"+str(width));
-    # fw.write('Average Width,'+str(width)+'\n')
-
     #####################Detail Width###############
     widthList = []
     minLength = h1List[0].size
@@ -193,6 +177,25 @@ def generate_data(filename):
     ###############Output to file###################
     fw.write('Cycle,' + str(cycle) + '\n')
 
+
+    #####################Average Width########################
+    # averageWidth = 0
+    # x = np.arange(0,len(h1List),1);
+    # y = averageAmplitude[0:len(h1List)];
+    # try:
+    #     p= np.polyfit(x,y,2);
+    #     zeroRoot = np.roots(p);
+    #     if zeroRoot.size >= 2:
+    #         averageWidth = np.real(zeroRoot[0]-zeroRoot[1]);
+    #         if averageWidth < 0:
+    #             averageWidth = 0;
+    # except:
+    #     averageWidth = 0
+    # print("Average Width:"+str(averageWidth));
+    # fw.write('Average Width,'+str(averageWidth)+'\n')
+
+
+    #####################Average Width with filter########################
     averageWidth = get_average(widthList)
     for i in range(0, len(widthList)):
         if widthList[i] > averageWidth * 2:
@@ -200,16 +203,19 @@ def generate_data(filename):
     averageWidth = get_average(widthList)
     print("Average Width:" + str(averageWidth))
     fw.write('Average Width,' + str(averageWidth) + '\n')
+
+    #####################Average Width End################################
+
     fw.write('Width,')
     for i in range(0, len(widthList)):
         fw.write(',' + str(widthList[i]))
     fw.write('\n')
 
-    x = np.arange(0, minLength, 1)
-    y = np.arange(0, len(h1List), 1)
-    plt.close('all')
-    plot(x, widthList, 'x')
-    plot(x, widthList)
+    #x = np.arange(0, minLength, 1)
+    #y = np.arange(0, len(h1List), 1)
+    #plt.close('all')
+    #plot(x, widthList, 'x')
+    #plot(x, widthList)
 
     for i in range(0, len(h1List)):
         H1 = h1List[i]
@@ -279,15 +285,17 @@ def generate_data(filename):
 
 
 if __name__ == "__main__":
-    fw2 = file("totalAnalysis.csv", 'w')
+    fw2 = file("../totalAnalysis.csv", 'w')
     fw2.write('FileName,AverageWidth\n')
 
     for parent, dirnames, filenames in os.walk("../finalres"):
         for filename in filenames:
             if not filename.endswith('csv'):
                 continue
-            # if not filename.startswith('right_18600429358_2016-1-14 13-20_3_2'):
-            #     continue
+            #if not filename.startswith('right_18600429358_2016-1-14 13-20_3_2'):
+            #    continue
+            # if not filename.startswith('left_13141265458_2016-1-14 12-1_3_1'):
+            #     continue;
             averageWidth = generate_data(filename)
             fw2.write(filename+','+str(averageWidth)+'\n')
 
