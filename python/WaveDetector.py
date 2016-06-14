@@ -56,6 +56,7 @@ def generate_data(filename):
         minH = wave.min()
         for j in range(0, wave.size):
             wave[j] = wave[j] - minH
+
         if PRE_FILTER == 1:
             startPos, endPos = ValidDataExtraction(wave)
         elif PRE_FILTER == 2:
