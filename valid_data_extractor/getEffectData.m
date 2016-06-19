@@ -9,8 +9,6 @@ function [ x, count ] = getEffectData( element, data, Fs, Seconds)
 
         adj_left = 0.755;
         adj_right = 2.333;
-        %adj_left = 0.5;
-        %adj_right = 3.333;
         
         j=0;
         while i+add< y_length
@@ -20,15 +18,14 @@ function [ x, count ] = getEffectData( element, data, Fs, Seconds)
 
             NFFT = 2^nextpow2(L); 
             Y2 = fft(y_temp,NFFT)/L;
-            f= Fs/2*linspace(0,1,NFFT/2+1);
 
             temp2=abs(Y2(1:NFFT/2+1));
             m2=max(temp2);
             index2=find(temp2(:,1)==m2);
-
+            
+            f= Fs/2*linspace(0,1,NFFT/2+1);
             f_max2 = f(1,index2);
             
-
             if f_max2 >= adj_left && f_max2 <= adj_right 
                 temp2 = unique(temp2);
                 value = temp2(end)*2 - temp2(end-1)*2;

@@ -1,4 +1,4 @@
-pulse_index = '20160114B\';
+pulse_index = 'a\';
 file=dir(['C:\Users\carelifead\Desktop\pulse\',pulse_index,'*.csv']);
 for n=1:length(file)
     disp(file(n).name);
@@ -7,6 +7,6 @@ for n=1:length(file)
     end
     input = ['C:\Users\carelifead\Desktop\pulse\',pulse_index,file(n).name];
     output = ['C:\Users\carelifead\Desktop\pulse\result\',pulse_index,file(n).name];
-    getResultFile(input,100,5,output);
+    getResultFile(input,200,5,output);
     disp('end');
 end
