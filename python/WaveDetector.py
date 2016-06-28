@@ -31,7 +31,7 @@ def get_average(width_list):
 
 
 def generate_data(filename):
-    inputdata = np.loadtxt("../finalres/" + filename, delimiter=",")
+    inputdata = np.loadtxt("../b/" + filename, delimiter=",")
     print("Now start:" + filename)
 
     h1List = []
@@ -137,7 +137,7 @@ def generate_data(filename):
     print("Average Wave Cycle %f" % cycle);
 
     fw = file("../results/" + filename, 'w')
-    if len(h1List) == 0:
+    if len(h1List) <= 1:
         print('Poor')
         fw.write('Poor data condition\n')
         return
@@ -289,7 +289,7 @@ if __name__ == "__main__":
     fw2 = file("../totalAnalysis.csv", 'w')
     fw2.write('FileName,AverageWidth\n')
 
-    for parent, dirnames, filenames in os.walk("../finalres"):
+    for parent, dirnames, filenames in os.walk("../b"):
         for filename in filenames:
             if not filename.endswith('csv'):
                 continue
